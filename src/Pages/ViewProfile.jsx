@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import AddPost from "../Components/AddPost";
+import ProfilePictureUpload from "../Components/ProfilePictureUpload";
 import { editUserProfileAPI, userAllPostsAPI } from "../Services/allAPI";
 import { useContext } from "react";
 import {
@@ -67,6 +68,35 @@ function ViewProfile() {
       setPreview("");
     }
   }, [userDetails.profile]);
+
+  // Handle profile picture update from cropper
+  const handleProfilePictureUpdate = async (croppedFile) => {
+    try {
+      const reqBody = new FormData();
+      reqBody.append("username", userDetails.username);
+      reqBody.append("email", userDetails.email);
+      reqBody.append("password", userDetails.password);
+      reqBody.append("profile", croppedFile);
+
+      const token = sessionStorage.getItem("token");
+      const reqHeader = {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`,
+      };
+
+      const res = await editUserProfileAPI(reqBody, reqHeader);
+      if (res.status === 200) {
+        sessionStorage.setItem("existingUser", JSON.stringify(res.data));
+        setEditProfileResponse(res.data);
+        setExisitingImg(res.data.profile);
+        return res.data;
+      } else {
+        throw new Error(res.response?.data || 'Failed to update profile');
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
 
   const iseditAndDeleteBtn = true;
 
@@ -165,11 +195,12 @@ function ViewProfile() {
           }}
           className="border w-75 d-flex align-items-center flex-column mt-5 px-4 position-relative"
         >
-          <Avatar
-            alt="Remy Sharp"
-            className="img-fluid mt-1"
-            src={ exisitingImg !== "" ? `${BASE_URL}/uploads/${exisitingImg}` :  avatar}
-            sx={{ width: 80, height: 80 }}
+          <ProfilePictureUpload
+            currentProfileImage={exisitingImg !== "" ? `${BASE_URL}/uploads/${exisitingImg}` : avatar}
+            onProfileUpdate={handleProfilePictureUpdate}
+            size={80}
+            showUploadButton={true}
+            className="mt-1"
           />
 
 

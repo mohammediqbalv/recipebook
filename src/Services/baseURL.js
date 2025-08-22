@@ -1,1 +1,1 @@
-export const BASE_URL = "https://recipebook-server-rb6c.onrender.com"
+export const BASE_URL = process.env.REACT_APP_BASE_URL

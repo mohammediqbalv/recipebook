@@ -31,8 +31,9 @@ function AddPost() {
 
   const handleClose = () => {
     setShow(false);
-    setPostDetails({ recipename: "", make: "", recipeImage: "" });
+    setPostDetails({ recipename: "", make: "", recipeImage: "", recipeVideo: "" });
     setPreview("");
+    setPreviewType("");
   };
   const handleShow = () => setShow(true);
 
@@ -46,16 +47,25 @@ function AddPost() {
     recipename: "",
     make: "",
     recipeImage: "",
+    recipeVideo: ""
   });
 
   // files url convert chayyanee...
   const [preview, setPreview] = useState("");
+  const [previewType, setPreviewType] = useState("");
 
   useEffect(() => {
     if (postDetails.recipeImage) {
       setPreview(URL.createObjectURL(postDetails.recipeImage));
+      setPreviewType("image");
+    } else if (postDetails.recipeVideo) {
+      setPreview(URL.createObjectURL(postDetails.recipeVideo));
+      setPreviewType("video");
+    } else {
+      setPreview("");
+      setPreviewType("");
     }
-  }, [postDetails.recipeImage,addPostResponse]);
+  }, [postDetails.recipeImage, postDetails.recipeVideo, addPostResponse]);
 
   // console.log(postDetails);
 
@@ -74,16 +84,17 @@ function AddPost() {
   // add Post
   const handleAddPost = async (e) => {
     e.preventDefault();
-    const { recipename, make, recipeImage } = postDetails;
-    if (!recipename || !make || !recipeImage) {
+    const { recipename, make, recipeImage, recipeVideo } = postDetails;
+    if (!recipename || !make || (!recipeImage && !recipeVideo)) {
       toast.info("Please Fill the Form Completely..!");
+    } else if (recipeImage && recipeVideo) {
+      toast.info("Please upload only one media file (image or video)!");
     } else {
       const reqBody = new FormData();
       reqBody.append("recipename", recipename);
       reqBody.append("make", make);
-      reqBody.append("recipeImage", recipeImage);
-
-      console.log(reqBody);
+      if (recipeImage) reqBody.append("recipeImage", recipeImage);
+      if (recipeVideo) reqBody.append("recipeImage", recipeVideo); // backend expects 'recipeImage' field
 
       if (token) {
         const reqHeader = {
@@ -92,16 +103,12 @@ function AddPost() {
         };
         const result = await addPostAPI(reqBody, reqHeader);
         if (result.status === 200) {
-          console.log(result.data);
           handleClose();
           toast.success("Posting....");
           setAddPostResponse(result.data);
         } else {
-          console.log(result);
-          console.log(result.response.data);
           toast.warning(result.response.data);
         }
-      } else {
       }
     }
   };
@@ -187,43 +194,75 @@ function AddPost() {
           </Form>
 
           <div className="d-flex justify-content-center">
-            <img
-              style={{ height: "150px" }}
-              width={"50%"}
-              className="img-fluid border-5 rounded"
-              src={
-                preview
-                  ? preview
-                  : "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
-              }
-              alt=""
-            />
+            {previewType === "image" && (
+              <img
+                style={{ height: "150px" }}
+                width={"50%"}
+                className="img-fluid border-5 rounded"
+                src={preview ? preview : "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"}
+                alt="preview"
+              />
+            )}
+            {previewType === "video" && (
+              <video
+                style={{ height: "150px" }}
+                width={"50%"}
+                className="img-fluid border-5 rounded"
+                src={preview}
+                controls
+              />
+            )}
+            {!preview && (
+              <img
+                style={{ height: "150px" }}
+                width={"50%"}
+                className="img-fluid border-5 rounded"
+                src="https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png"
+                alt="placeholder"
+              />
+            )}
           </div>
 
-          <OverlayTrigger
-            placement="right"
-            delay={{ show: 250, hide: 400 }}
-            overlay={renderTooltip}
-          >
-            <div
-              style={{ height: "45px", width: "45px" }}
-              className="border rounded-circle d-flex justify-content-center align-items-center btn btn-outline-dark"
-            >
-              <label>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  onChange={(e) =>
-                    setPostDetails({
-                      ...postDetails,
-                      recipeImage: e.target.files[0],
-                    })
-                  }
-                />
-                <i class="fa-solid fa-image fs-5"></i>
-              </label>
-            </div>
-          </OverlayTrigger>
+          <div className="d-flex justify-content-center gap-3 mt-2">
+            <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+              <div style={{ height: "45px", width: "45px" }} className="border rounded-circle d-flex justify-content-center align-items-center btn btn-outline-dark">
+                <label>
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setPostDetails({
+                        ...postDetails,
+                        recipeImage: e.target.files[0],
+                        recipeVideo: ""
+                      })
+                    }
+                  />
+                  <i className="fa-solid fa-image fs-5"></i>
+                </label>
+              </div>
+            </OverlayTrigger>
+            <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="video-tooltip">add Video</Tooltip>}>
+              <div style={{ height: "45px", width: "45px" }} className="border rounded-circle d-flex justify-content-center align-items-center btn btn-outline-dark">
+                <label>
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    accept="video/*"
+                    onChange={(e) =>
+                      setPostDetails({
+                        ...postDetails,
+                        recipeVideo: e.target.files[0],
+                        recipeImage: ""
+                      })
+                    }
+                  />
+                  <i className="fa-solid fa-video fs-5"></i>
+                </label>
+              </div>
+            </OverlayTrigger>
+          </div>
         </Modal.Body>
         <Modal.Footer className="d-flex justify-content-center">
           <div

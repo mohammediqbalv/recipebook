@@ -13,3 +13,192 @@
 
     }
   }
+
+/* --- About Section Styles --- */
+.about-container {
+  background: linear-gradient(135deg, #fffbe7 0%, #ffe5b4 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(255, 183, 77, 0.15);
+  padding: 2.5rem 2rem;
+  margin-top: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-container h2 {
+  color: #d2691e;
+  font-family: 'Pacifico', cursive, sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.about-container section {
+  margin-bottom: 2rem;
+  padding: 1.2rem 1rem;
+  background: rgba(255, 248, 220, 0.7);
+  border-radius: 12px;
+  border-left: 6px solid #ff9800;
+  box-shadow: 0 2px 8px rgba(255, 183, 77, 0.07);
+}
+
+.about-container h4 {
+  color: #ff9800;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 0.7rem;
+  font-size: 1.3rem;
+}
+
+.about-container ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-container ul li {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 0.7rem;
+  font-size: 1.08rem;
+}
+
+.about-container ul li:before {
+  content: '\1F35E'; /* Bread emoji */
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.2rem;
+}
+
+.about-container blockquote {
+  font-style: italic;
+  color: #a0522d;
+  border-left: 4px solid #ff9800;
+  padding-left: 1rem;
+  background: #fff3e0;
+  border-radius: 6px;
+}
+
+.about-container a {
+  color: #d2691e;
+  text-decoration: underline wavy #ff9800;
+  transition: color 0.2s;
+}
+
+.about-container a:hover {
+  color: #ff9800;
+}
+
+.about-container .text-muted {
+  color: #bdbdbd !important;
+  font-size: 0.95rem;
+}
+
+/* Decorative food icons */
+.about-container:before {
+  content: '\1F35A'; /* Cooked rice emoji */
+  position: absolute;
+  top: 18px;
+  right: 32px;
+  font-size: 2.2rem;
+  opacity: 0.18;
+}
+
+.about-container:after {
+  content: '\1F372'; /* Pot of food emoji */
+  position: absolute;
+  bottom: 18px;
+  left: 32px;
+  font-size: 2.2rem;
+  opacity: 0.18;
+}
+
+/* --- Comment Section Styles --- */
+.comment-section {
+  background: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  padding: 1.5rem 1rem;
+  margin-top: 1.5rem;
+}
+.comment-section h6 {
+  color: #ff9800;
+  font-family: 'Quicksand', sans-serif;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+.comment-list {
+  padding-left: 0;
+  margin-bottom: 1rem;
+}
+.comment-item {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(255, 183, 77, 0.08);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  flex-direction: column;
+}
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.2rem;
+}
+.comment-username {
+  font-weight: 600;
+  color: #d2691e;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+}
+.comment-timestamp {
+  color: #bdbdbd;
+  font-size: 0.85rem;
+}
+.comment-body {
+  font-size: 1.05rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.comment-delete-btn {
+  background: #ffebee;
+  color: #d32f2f;
+  border: none;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.comment-delete-btn:hover {
+  background: #ffcdd2;
+  color: #b71c1c;
+}
+.comment-input-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+.comment-input-form input {
+  flex: 1;
+  border-radius: 6px;
+  border: 1px solid #ffe0b2;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+}
+.comment-input-form button {
+  background: #ff9800;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+.comment-input-form button:hover {
+  background: #d2691e;
+}

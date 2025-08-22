@@ -1,0 +1,211 @@
+.image-cropper-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.image-cropper-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.crop-frame {
+  position: absolute;
+  border: 2px solid #007bff;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.crop-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #007bff;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.crop-handle.top-left {
+  top: -4px;
+  left: -4px;
+  cursor: nw-resize;
+}
+
+.crop-handle.top-right {
+  top: -4px;
+  right: -4px;
+  cursor: ne-resize;
+}
+
+.crop-handle.bottom-left {
+  bottom: -4px;
+  left: -4px;
+  cursor: sw-resize;
+}
+
+.crop-handle.bottom-right {
+  bottom: -4px;
+  right: -4px;
+  cursor: se-resize;
+}
+
+.upload-area {
+  border: 2px dashed #dee2e6;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-area:hover {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.upload-area.dragover {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.cropper-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0;
+}
+
+.cropper-control-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background: white;
+  color: #495057;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cropper-control-btn:hover {
+  background: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.cropper-control-btn:active {
+  transform: translateY(1px);
+}
+
+.cropper-instructions {
+  text-align: center;
+  color: #6c757d;
+  font-size: 12px;
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+.profile-avatar {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cropper-image {
+  position: absolute;
+  max-width: none;
+  max-height: none;
+  cursor: grab;
+  transition: none;
+}
+
+.cropper-image:active {
+  cursor: grabbing;
+}
+
+.upload-button {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #007bff;
+  border: 2px solid white;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.upload-button:hover {
+  background: #0056b3;
+  transform: scale(1.1);
+}
+
+.upload-button:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .image-cropper-container {
+    width: 300px !important;
+    height: 300px !important;
+  }
+  
+  .cropper-controls {
+    gap: 6px;
+  }
+  
+  .cropper-control-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-cropper-container {
+    width: 250px !important;
+    height: 250px !important;
+  }
+  
+  .cropper-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+} 

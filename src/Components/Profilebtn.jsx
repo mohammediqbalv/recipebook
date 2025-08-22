@@ -1,6 +1,6 @@
 import React from 'react'
 import avatar from "../Assets/user.jpg"
-import Avatar from '@mui/material/Avatar';
+import ProfilePictureUpload from './ProfilePictureUpload';
 import { BASE_URL } from '../Services/baseURL';
  
 function Profilebtn({userDetails}) {
@@ -9,7 +9,12 @@ function Profilebtn({userDetails}) {
     <>
     <div className='d-flex justify-content-center  align-items-center'>
         <div className=''>
-        <Avatar alt="Remy Sharp" className='img-fluid' src={userDetails?.profile !== "" ? `${BASE_URL}/uploads/${userDetails.profile}` : avatar}  sx={{ width: 34, height: 34 }} />
+        <ProfilePictureUpload
+          currentProfileImage={userDetails?.profile !== "" ? `${BASE_URL}/uploads/${userDetails.profile}` : avatar}
+          onProfileUpdate={() => {}} // No update function needed for display-only
+          size={34}
+          showUploadButton={false}
+        />
         </div>
         <div className='ms-3 d-flex flex-column'>
             <span style={{fontSize:"14px"}} className='fw-bold'>{userDetails?.username}</span>

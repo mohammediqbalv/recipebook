@@ -38,7 +38,7 @@ function RightSide() {
                 cooking.
               </h6>
               <h6 style={{ fontSize: "10px" }}>
-                Code licensed MRishal, docs CC BY 3.0.
+                Code licensed IQBAL, docs CC BY 3.0.
               </h6>
               <p className="text-dark">Currently v1.0.0.</p>
             </div>

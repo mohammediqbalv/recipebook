@@ -130,7 +130,7 @@ function Footer() {
         </div>
       </div>
       <p className="text-dark mt-4" style={{fontSize:"11px"}}>
-        copyright @ 2023 Recipe Book. buit with React.
+        copyright @ 2025 Recipe Book. buit with React.
       </p>
     </div>
   );

@@ -58,7 +58,7 @@ function Auth() {
         });
         navigate("/home");
       } else {
-        toast.warning(result.response.data);
+        toast.warning(result?.response?.data);
         console.log(result);
       }
     }
